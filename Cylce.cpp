@@ -18,7 +18,8 @@ class Cylce
     Node *root = new Node;
 public:
     Cylce(int val = 0);
-    int getCout() {return count;};
+    int getCount() {return count;};
+    Node* getRoot() {return root;};
     Node* Prev(Node *elem) {return elem->prevPtr;};
     Node* Next(Node  *elem) {return elem->nextPtr;};
     Node* Add(Node *par, int val=0);
@@ -90,14 +91,16 @@ Node* Cylce::swap(Node *first, Node *sec)
     return(root);
 }
 
-void Cylce::print(Node *start)
+void Cylce::print(Node *start=NULL)
 {
+    if (start==NULL) {start=root;};
     Node *el = start;
     for (int i=0; i<count; i++)
     {
-        cout << el;
+        cout << el->value << ' ';
         el = Next(el);
     }
+    cout << endl;
 }
 void Cylce::del(Node *elem)
 {
@@ -108,5 +111,16 @@ void Cylce::del(Node *elem)
 
 int main()
 {
-
+int a;
+Cylce lst = Cylce(0);
+Node *p = lst.getRoot();
+for (int i=0; i<10; i++)
+{
+    cin >> a;
+    lst.Add(p, a);
+    p = lst.Next(p);
+}
+lst.print();
+lst.swap(lst.getRoot(), lst.Prev(p));
+lst.print();
 }
